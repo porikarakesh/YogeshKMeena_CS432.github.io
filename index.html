@@ -1,39 +1,458 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Course Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS 432: Database Systems | IIT Gandhinagar</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; line-height: 1.6; padding: 0 20px; }
-        h1, h2 { color: #333; }
-        .course-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
-        a { color: #0366d6; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        :root {
+            --primary-color: #b30000; /* IITGN Red-ish tone */
+            --secondary-color: #2c3e50;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --border-color: #ddd;
+            --accent-bg: #fff;
+        }
+
+        body {
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            background-color: var(--bg-color);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .nav-links li a {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links li:last-child a {
+            border-bottom: none;
+        }
+
+        .nav-links li a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Main Content */
+        header {
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 25px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Sections */
+        .card {
+            background: var(--accent-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f1f1;
+            font-weight: 600;
+        }
+
+        /* Links */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Staff Grid */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .staff-member {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        /* Buttons */
+        .btn-calendar {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn-calendar:hover {
+            background-color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <h1>Prof. Yogesh Kumar Meena</h1>
-    <p>Welcome to the Databases teaching page. Below you will find materials for this course.</p>
-    
-    <hr>
-
-    <h2>Current Courses</h2>
-    
-    <div class="course-card">
-        <h3>CS101: Introduction to Programming (Fall 2025)</h3>
-        <p>This course covers the fundamentals of Python and Algorithms.</p>
-        <ul>
-            <li><a href="#">Syllabus (PDF)</a></li>
-            <li><a href="#">Lecture Notes</a></li>
-            <li><a href="#">Assignments</a></li>
+<div class="container">
+    <aside class="sidebar">
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#staff">Staff</a></li>
+            <li><a href="#logistics">Logistics & Grading</a></li>
+            <li><a href="#contents">Course Contents</a></li>
+            <li><a href="#timeline">Timeline & Calendar</a></li>
+            <li><a href="#presentations">Presentations (Slides)</a></li>
+            <li><a href="#references">References</a></li>
         </ul>
-    </div>
+    </aside>
 
-    <h2>Past Teaching</h2>
-    <ul>
-        <li><strong>2024:</strong> Data Science for Beginners</li>
-        <li><strong>2023:</strong> Advanced Machine Learning</li>
-    </ul>
+    <main>
+        <header id="home">
+            <h1>CS 432: Database Systems</h1>
+            <div class="subtitle">Jan-April 2025-26 | IIT Gandhinagar</div>
+            <p><strong>Prerequisite:</strong> Data Structures and Algorithms-I [ES 242 or equivalent]</p>
+            <p><strong>Honour Code:</strong> <a href="https://iitgn.ac.in/students/honourcode" target="_blank">View Policy</a></p>
+        </header>
+
+        <section id="staff">
+            <h2>Instructional Staff</h2>
+            
+            <div class="card">
+                <h3>Instructor</h3>
+                <p><strong>Yogesh Kumar Meena</strong><br>
+                Office: AB13/401A<br>
+                Email: <a href="mailto:yk.meena@iitgn.ac.in">yk.meena@iitgn.ac.in</a></p>
+                <p><em>QA Sessions: Please email to schedule an appointment.</em></p>
+            </div>
+
+            <h3>Teaching Assistants</h3>
+            <div class="staff-grid">
+                <div class="staff-member">
+                    <span class="role-badge">Lead TA</span>
+                    <div><strong>Ramanand</strong> (PhD)</div>
+                    <a href="mailto:24310048@iitgn.ac.in">24310048@iitgn.ac.in</a>
+                </div>
+                <div class="staff-member">
+                    <span class="role-badge">TA</span>
+                    <div><strong>Porika Rakesh</strong> (PhD)</div>
+                    <a href="mailto:porika.rakesh@iitgn.ac.in">porika.rakesh@iitgn.ac.in</a>
+                </div>
+                <div class="staff-member">
+                    <span class="role-badge">TA</span>
+                    <div><strong>Sreejan</strong> (MTech)</div>
+                    <a href="mailto:sreejan.24250093@iitgn.ac.in">sreejan.24250093@iitgn.ac.in</a>
+                </div>
+                <div class="staff-member">
+                    <span class="role-badge">TA</span>
+                    <div><strong>Madhusudhanan K</strong> (MTech)</div>
+                    <a href="mailto:madhusudhanan.k@iitgn.ac.in">madhusudhanan.k@iitgn.ac.in</a>
+                </div>
+                <div class="staff-member">
+                    <span class="role-badge">TA</span>
+                    <div><strong>Ravitosh Kumar Yadav</strong> (MTech)</div>
+                    <a href="mailto:ravitosh.yadav@iitgn.ac.in">ravitosh.yadav@iitgn.ac.in</a>
+                </div>
+                <div class="staff-member">
+                    <span class="role-badge">TA</span>
+                    <div><strong>Sankalp Sunil Turankar</strong> (MTech)</div>
+                    <a href="mailto:sankalp.turankar@iitgn.ac.in">sankalp.turankar@iitgn.ac.in</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="logistics">
+            <h2>Logistics & Grading</h2>
+            <div class="card">
+                <h3>Lectures</h3>
+                <p><strong>[P1] Wednesday:</strong> 5:00 PM – 6:20 PM @ 7/208<br>
+                <strong>[P2] Friday:</strong> 5:00 PM – 6:20 PM @ 7/208</p>
+                
+                <h3>Grading Policy</h3>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Weight</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td>4 Assignments/Mini-projects</td>
+                        <td>40%</td>
+                        <td>10% each. 1 week duration.</td>
+                    </tr>
+                    <tr>
+                        <td>3 Surprise Quizzes</td>
+                        <td>24%</td>
+                        <td>8% each.</td>
+                    </tr>
+                    <tr>
+                        <td>Attendance</td>
+                        <td>6%</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Final Exam</td>
+                        <td>30%</td>
+                        <td>-</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="contents">
+            <h2>Course Contents</h2>
+            <div class="card">
+                <ul style="column-count: 2; column-gap: 40px;">
+                    <li>Introduction to RDBMS</li>
+                    <li>Structured Query Language (SQL)</li>
+                    <li>Relational Algebra & ER Model</li>
+                    <li>Relational Database Design</li>
+                    <li>Storage and File Structure</li>
+                    <li>Application Development</li>
+                    <li>Indexing and Hashing</li>
+                    <li>Query Processing</li>
+                    <li>Query Optimization</li>
+                    <li>Transactions</li>
+                    <li>Concurrency Control</li>
+                    <li>Recovery Systems</li>
+                    <li>Introduction to No-SQL Databases</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0; border: none;">Timeline</h2>
+                <button onclick="downloadICS()" class="btn-calendar">
+                    📅 Add to Calendar
+                </button>
+            </div>
+            <p><em>Excluding holidays/breaks/exams.</em></p>
+            
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Lecture Dates</th>
+                            <th>Key Events</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>January</strong></td>
+                            <td>7, 9, 14, 16, 21, 23, 28, 30</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>February</strong></td>
+                            <td>4, 6, 11, 13, 18, 20, 25, 27</td>
+                            <td><span style="color: var(--primary-color);">Exam I: Feb 20 – 27</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>March</strong></td>
+                            <td>4, 6, 11, 13, 18, 20, 25, 27</td>
+                            <td><span style="color: var(--primary-color);">Mid-Sem Recess: Feb 28 - Mar 08</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>April</strong></td>
+                            <td>1, 3, 8, 10, 15, 17, 22</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="presentations">
+            <h2>Presentations & Files</h2>
+            <div class="card">
+                <p>The link to lecture slides will be updated before/after each class.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lecture #</th>
+                            <th>Date</th>
+                            <th>Topic</th>
+                            <th>Material</th>
+                        </tr>
+                    </thead>
+                    <tbody id="presentation-list">
+                        <tr>
+                            <td>L1</td>
+                            <td>Jan 07</td>
+                            <td>Introduction / Overview</td>
+                            <td>[Pending]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="references">
+            <h2>Texts & References</h2>
+            <div class="card">
+                <ul style="list-style-type: square;">
+                    <li><strong>[SKS]</strong> Abraham Silberschatz, Henry Korth, and S. Sudarshan. <em>Database System Concepts</em>. 6th Edition, McGraw-Hill Education, 2010. (Primary).</li>
+                    <li><strong>[HS]</strong> Joseph M. Hellerstein and Michael Stonebraker. <em>Readings in Database Systems</em>, 4th Edition, MIT Press, 2005.</li>
+                    <li><strong>[EN]</strong> Ramez Elmsari and Shamkant B. Navathe. <em>Database Systems</em> 6th Edition, Pearson, 2015.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    function downloadICS() {
+        // Course Details
+        const courseName = "CS 432: Database Systems";
+        const location = "7/208, IIT Gandhinagar";
+        const startTime = "170000"; // 5:00 PM
+        const endTime = "182000";   // 6:20 PM
+        const year = "2026";
+
+        // Lecture Dates parsed from the prompt (DDMM format)
+        // Jan: 7, 9, 14, 16, 21, 23, 28, 30
+        // Feb: 4, 6, 11, 13, 18, 20, 25, 27
+        // Mar: 4, 6, 11, 13, 18, 20, 25, 27
+        // Apr: 1, 3, 8, 10, 15, 17, 22
+        
+        const dates = [
+            // January
+            "0107", "0109", "0114", "0116", "0121", "0123", "0128", "0130",
+            // February
+            "0204", "0206", "0211", "0213", "0218", "0220", "0225", "0227",
+            // March
+            "0304", "0306", "0311", "0313", "0318", "0320", "0325", "0327",
+            // April
+            "0401", "0403", "0408", "0410", "0415", "0417", "0422"
+        ];
+
+        let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//CS432//IITGN//EN\n";
+
+        dates.forEach(dateStr => {
+            const dtStart = `${year}${dateStr}T${startTime}`;
+            const dtEnd = `${year}${dateStr}T${endTime}`;
+            
+            icsContent += "BEGIN:VEVENT\n";
+            icsContent += `SUMMARY:${courseName}\n`;
+            icsContent += `DTSTART:${dtStart}\n`;
+            icsContent += `DTEND:${dtEnd}\n`;
+            icsContent += `LOCATION:${location}\n`;
+            icsContent += "DESCRIPTION:Lecture for CS 432\n";
+            icsContent += "END:VEVENT\n";
+        });
+
+        icsContent += "END:VCALENDAR";
+
+        // Create download link
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.setAttribute('download', 'CS432_Schedule.ics');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
 
 </body>
 </html>
